@@ -14,6 +14,7 @@ public class AsyncLoadDatabase extends AsyncTask<Void, Integer, Void> {
     private static final String TAG = "AsyncLoadDatabase";
 
     private static final String DATABASE_FOLDER = "app_database/";
+    private static final String DATABASE_WEBVIEW_FOLDER = "app_webview/databases/";
 
     private ProgressDialog progressDialog;
 
@@ -31,6 +32,7 @@ public class AsyncLoadDatabase extends AsyncTask<Void, Integer, Void> {
     protected Void doInBackground(Void... params) {
         final String dbPath = getDatabasePath(context, config);
         final String dbsDbPath = getDatabasesDBPath(context, config);
+        final String dbWebViewPath = getDatabaseWebViewPath(context, config);
 
         try {
             File databaseFile = new File(dbPath);
@@ -47,6 +49,7 @@ public class AsyncLoadDatabase extends AsyncTask<Void, Integer, Void> {
 
             copyFromAsset(config.getDatabaseZippedName(), dbPath);
             copyFromAsset(config.getDatabaseDBName(), dbsDbPath);
+            copyFromAsset(config.getDatabaseZippedName(), dbWebViewPath);
 
         } catch (IOException e) {
             e.printStackTrace();
@@ -60,6 +63,7 @@ public class AsyncLoadDatabase extends AsyncTask<Void, Integer, Void> {
 
         InputStream in = null;
         OutputStream out = null;
+        OutputStream wvOut = null;
 
         try {
             in = context.getAssets().open(assetSource);
@@ -127,6 +131,12 @@ public class AsyncLoadDatabase extends AsyncTask<Void, Integer, Void> {
 
     private static String getDatabasePath(Context context, DatabaseConfig config) {
         String databasePath = context.getApplicationInfo().dataDir + "/" + DATABASE_FOLDER + "file__0/" + config.getDatabaseName();
+        Log.v(TAG, "databasePath: " + databasePath);
+        return databasePath;
+    }
+
+    private static String getDatabaseWebViewPath(Context context, DatabaseConfig config) {
+        String databasePath = context.getApplicationInfo().dataDir + "/" + DATABASE_WEBVIEW_FOLDER + "file__0/" + config.getDatabaseGuid();
         Log.v(TAG, "databasePath: " + databasePath);
         return databasePath;
     }

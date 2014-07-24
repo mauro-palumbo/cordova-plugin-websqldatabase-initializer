@@ -7,6 +7,7 @@ public class DatabaseConfig {
     private String loadingTitle = "Loading";
     private String loadingText = "Loading initial data, please wait...";
     private boolean forceReload = false;
+    private Integer databaseGuid = 1;
 
     /**
      * Configuration for the Web SQL Database initializer plugin
@@ -17,6 +18,12 @@ public class DatabaseConfig {
     public DatabaseConfig(String databaseZippedName, String databaseName) {
         this.databaseZippedName = databaseZippedName;
         this.databaseName = databaseName;
+    }
+
+    public DatabaseConfig(String databaseZippedName, String databaseName, Integer databaseGuid) {
+        this.databaseZippedName = databaseZippedName;
+        this.databaseName = databaseName;
+        this.databaseGuid = databaseGuid;
     }
 
     /**
@@ -53,6 +60,10 @@ public class DatabaseConfig {
 
     public String getDatabaseName() {
         return databaseName;
+    }
+
+    public Integer getDatabaseGuid() {
+        return databaseGuid;
     }
 
     public String getLoadingTitle() {

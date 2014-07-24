@@ -19,7 +19,7 @@ If you are not using the Cordova Command-line Interface, follow [Using Plugman t
 
 The database used for initialization (named "myDemoSQLiteDB" below) is an SQLite file with a ".db" extension compressed in a ".zip" file.
 
-You can create the ".db" file with the initial content via Chrome/Chromium using the WebSqlDatabase API (and retrieve it from the "databases" diretory of the [User Data Directory](http://www.chromium.org/user-experience/user-data-directory)) or with an SQLite client (sqlite3, sqlitebrowser, ...).
+You can create the ".db" file with the initial content via Chrome/Chromium using the WebSqlDatabase API (and retrieve it from the "databases" directory of the [User Data Directory](http://www.chromium.org/user-experience/user-data-directory)) or with an SQLite client (sqlite3, sqlitebrowser, ...).
 
 Name the resulting database binary file with a ".db" extension and zip it.
 
@@ -46,12 +46,12 @@ import org.smile.websqldatabase.*;
 ```
 
   * add "implements DatabaseInitializable" on your main class
-  * implement the getDatabaseConfig method (with the correct database configuration):
+  * implement the getDatabaseConfig method (with the correct database configuration; use the constructor with the database guid to enable support for Android KitKat 4.4.x):
 
 ```java
 @Override
 public DatabaseConfig getDatabaseConfig() {
-    return new DatabaseConfig("myDemoSQLiteDB.zip", "myDemoSQLiteDB.db");
+    return new DatabaseConfig("myDemoSQLiteDB.zip", "myDemoSQLiteDB.db", 1);
 }
 ```
 
